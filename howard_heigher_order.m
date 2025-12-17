@@ -1,4 +1,4 @@
-function [eta, v, c, j] = howard_heigher_order(A)
+function [eta, v] = howard_heigher_order(A)
 
     n = size(A,1);
     m = size(A,3);
@@ -15,9 +15,6 @@ function [eta, v, c, j] = howard_heigher_order(A)
     end
     
     [eta, v, critical_j] = improvement(A, pi, A_pi, v);
-
-    c = compute_cyc_higher(A, v, eta(1));
-    j = critical_j;
 end
 
 function xi = cycle(A, s)
@@ -56,9 +53,7 @@ function [eta, v, visited] = visit_all(A_pi, xi, eta, v, j, visited)
 
     A_j = squeeze(A_pi(:,j,:));
     [idx_i, idx_l] = ind2sub([n m], find(isfinite(A_j)));
-    
-    %[idx1, idx2] = ind2sub([n, m], find(isfinite(A_pi(:,j,:))));
-    
+        
     for k = 1:numel(idx_i)
         i = idx_i(k);
     
@@ -81,7 +76,6 @@ function eta_bar = avg_weight(xi, A_pi)
         eta_bar = eta_bar + A_pi(xi(i,1), xi(i+1,1), xi(i,2));
         len = len + (xi(i,2) - 1);
     end
-    %eta_bar = eta_bar / (length(xi(:,1))-1);
     
     eta_bar = eta_bar / len;
 end
@@ -182,4 +176,5 @@ function [eta, v, j] = improvement(A, pi, A_pi, v)
         if I_2 == 0, cont_improvement = false; end     
     end
 end
+
 
