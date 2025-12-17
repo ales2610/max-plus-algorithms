@@ -15,15 +15,10 @@ function [delta_min, delta_max, low_95, upp_95] = lea_order1(A, c, j, N_max, M, 
         A_k0 = identity(n);             
         A_kc = identity(n);  
 
-        m
-
         for k=0:N_max-1
           
             A_k = f_sample(A);          
-
             A_k0 = otimes(A_k, A_k0);
-
-            %k
             
             if k >= c
                 A_kc = otimes(A_k, A_kc);
@@ -68,8 +63,8 @@ function [delta_min, delta_max, low_95, upp_95] = lea_order1(A, c, j, N_max, M, 
         figure
         plot(x, avg_d(1, idx:end), x, avg_d(2, idx:end))
 
-        %figure
-        %histogram(d_all(1,1:end));
+        figure
+        histogram(d_all(1,1:end));
     end
 end
 
@@ -80,18 +75,6 @@ function E = identity(n)
     end
 end
 
-% function C = otimes(A, B)
-%     n = size(A,1);
-%     C = -inf*ones(n);
-%     for i = 1:n
-%         for j = 1:n
-%             for k = 1:n
-%                 C(i,j) = max(C(i,j), A(i,k) + B(k,j));
-%             end
-%         end
-%     end
-% end
-
 function C = otimes(A, B)
     n = size(A,1);
     C = -inf(n);
@@ -99,4 +82,5 @@ function C = otimes(A, B)
     for k = 1:n
         C = max(C, A(:,k) + B(k,:));
     end
+
 end
