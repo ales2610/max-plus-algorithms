@@ -40,7 +40,6 @@ function [delta_min, delta_max, low_95, upp_95] = lea_order2(A0, A1, c, j, N_max
             avg_d(2, k+1) = avg_d(2, k+1) + delta_m_max;
 
             if ~pr && delta_m_max - delta_m_min <= delta, break; end
-            %if delta_m_max - delta_m_min <= delta, break; end
         end
 
         delta_min = delta_min + delta_m_min;
@@ -93,12 +92,9 @@ end
 
 function C = otimes(A, B)
     n = size(A,1);
-    C = -inf*ones(n);
-    for i = 1:n
-        for j = 1:n
-            for k = 1:n
-                C(i,j) = max(C(i,j), A(i,k) + B(k,j));
-            end
-        end
+    C = -inf(n);
+
+    for k = 1:n
+        C = max(C, A(:,k) + B(k,:));
     end
 end
