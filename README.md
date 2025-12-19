@@ -1,68 +1,90 @@
 # max-plus-algorithms
 
-This repository contains MATLAB implementations of algorithms for the analysis of max-plus linear systems, with a focus on spectral properties and transient behaviour.
+This repository contains MATLAB implementations for the analysis of  
+**max-plus linear systems**, with a focus on spectral properties and transient
+behaviour.
 
 Max-plus algebra replaces classical addition and multiplication by:
 
-Addition: a ⊕ b = max(a,b)
+- **Addition:**  
+  a ⊕ b = max(a, b)
 
-Multiplication: a ⊗ b = a + b
+- **Multiplication:**  
+  a ⊗ b = a + b
 
-Such models naturally arise in discrete-event systems, scheduling, transportation networks, and timed Petri nets.
+Such models arise naturally in **discrete-event systems**, **scheduling**,
+**transportation networks**, and **timed Petri nets**.
 
-Files in this repository
-howard.m
+---
 
-Implementation of Howard’s policy iteration algorithm for computing a generalised max-plus eigenmode.
+## Repository Contents
 
-Given a weighted max-plus system with multiple durations, the algorithm computes:
+### `howard.m`
 
-the max-plus eigenvalue (cycle mean),
+Implementation of **Howard’s policy iteration algorithm** for computing a
+**generalised max-plus eigenmode**.
 
-the associated eigenvector,
+Given a max-plus system with multiple durations, the algorithm computes:
 
-a critical node belonging to a critical cycle.
+- the **max-plus eigenvalue** (cycle mean),
+- the associated **eigenvector**,
+- a **critical node** belonging to a critical cycle.
 
-This corresponds to solving a mean-payoff / max-plus spectral problem.
+This corresponds to solving a **mean-payoff / max-plus spectral problem**.
 
-lea.m
+---
 
-Monte Carlo algorithm for estimating transient deviation bounds in max-plus linear systems.
+### `lea.m`
 
-The method:
+Monte Carlo algorithm for estimating **transient deviation bounds** in
+max-plus linear systems.
 
-applies random perturbations to a max-plus matrix,
+The algorithm:
 
-compares two trajectories with a time shift,
+- applies random perturbations to a max-plus matrix,
+- propagates two trajectories with a fixed time shift,
+- estimates **lower and upper bounds** on their deviation,
+- computes **95% confidence intervals** from Monte Carlo samples.
 
-estimates lower and upper bounds on their deviation,
+This method is closely related to **Lyapunov exponent estimation** and
+**coupling-time analysis** for stochastic max-plus systems.
 
-provides 95% confidence intervals.
+---
 
-This approach is related to Lyapunov-type and coupling-time analyses for stochastic max-plus systems.
+### `example_lea.m`
 
-example_lea.m
-
-Example script illustrating how to use lea.m.
+Example script demonstrating the use of `lea.m`.
 
 The script:
 
-defines a max-plus system matrix,
+1. Defines a max-plus system matrix
+2. Sets algorithm parameters
+3. Runs the Monte Carlo estimation
+4. Returns deviation bounds and confidence intervals
 
-sets algorithm parameters,
+This file serves as a **minimal working example**.
 
-runs the Monte Carlo estimation,
+---
 
-returns deviation bounds and confidence intervals.
+## Requirements
 
-This file serves as a minimal working example.
+- MATLAB  
+- No external toolboxes required
 
-Requirements
+---
 
-MATLAB (no external toolboxes required)
+## References
 
-References
+- B. Heidergott, G. J. Olsder, J. van der Woude,  
+  *Max Plus at Work*, Princeton University Press, 2006.
 
-F. Baccelli, G. Cohen, G. J. Olsder, J.-P. Quadrat, Synchronization and Linearity, Wiley.
+- R. M. P. Goverde, B. Heidergott, G. Merlet,  
+  *A coupling approach to estimating the Lyapunov exponent of stochastic  
+  max-plus linear systems*.
 
-Mean-payoff games and max-plus spectral theory literature.
+---
+
+## License
+
+This code is provided for research and educational purposes.
+
