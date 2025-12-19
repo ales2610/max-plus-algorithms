@@ -183,10 +183,10 @@ end
 function [eta, v, j] = improvement(A, pi, A_pi, v)
 % IMPROVEMENT  Policy improvement loop of Howard's algorithm.
 %
-% Alternates between:
-%   - improving the eigenvalue (eta)
-%   - improving the eigenvector (v)
-% until no further improvement is possible.
+% Improve policy until eta and v of A_pi don't satisfy two conditions for each node i:
+% 1) max eta_j over all nodes j, such that j -> i, equals eta_i
+% 2) max A_ij + v_j - eta_j over all connections j -> i where eta_i = eta_j
+
 
     tol = 1e-10;
 
@@ -194,11 +194,12 @@ function [eta, v, j] = improvement(A, pi, A_pi, v)
     m = size(A_pi,3);
     cont_improvement = true;
 
+    % improve policy until both conditions are satisfied
     while cont_improvement
 
         cont_improvement1 = true;
 
-        % --- Eigenvalue (eta) improvement ---
+        % improve policy until the first condition is satisifed
         while cont_improvement1
             [eta, v, j] = value_det(A_pi, v);
 
@@ -212,7 +213,7 @@ function [eta, v, j] = improvement(A, pi, A_pi, v)
                 [max_eta, idx] = max(eta_j(:));
                 [max_l, max_j] = ind2sub([m n], idx);
     
-                % Find nodes that do not match the condidtion
+                % Find nodes that do not match the condidtion 1)
                 if eta(i) < max_eta - tol
                     I_1 = I_1 + 1; 
 
@@ -231,7 +232,7 @@ function [eta, v, j] = improvement(A, pi, A_pi, v)
             end    
         end
 
-        % --- Eigenvector (v) improvement ---
+        % check condition 2)
         I_2 = 0;
         for i=1:n
             A_i = squeeze(A(i,:,:))';
@@ -245,7 +246,7 @@ function [eta, v, j] = improvement(A, pi, A_pi, v)
             [max_v, idx] = max(val_i(:));
             [max_l, max_j] = ind2sub([m n], idx);
             
-            % Find nodes that do not match the condidtion
+            % Find nodes that do not match the condidtion 2)
             if v(i) < max_v - tol
                 I_2 = I_2 + 1; 
 
