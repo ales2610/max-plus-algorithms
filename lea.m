@@ -7,17 +7,18 @@ function [delta_min, delta_max, low_95, upp_95] = lea(A, c, j, N_max, M, delta, 
 % - one starting at time 0
 % - one starting at time c
 %
-% The method repeatedly perturbs the system matrix A, propagates
+% The method repeatedly samples the system matrix A, propagates
 % max-plus products, and measures the difference in the j-th column.
 %
 % INPUT:
 % A : n x n max-plus matrix (entries in R ∪ {-Inf})
-% c : time shift (delay) parameter
+% c : time shift (delay) parameter - this should be the cyclicity of E[A]
 % j : reference column index
 % N_max : maximum time horizon
 % M : number of Monte Carlo samples
 % delta : stopping tolerance on (delta_max - delta_min)
-% pr : plotting flag (true/false)
+% pr : plotting flag (true/false) - if true the stopping tolerance is
+% ignored so that we can show all iterations
 %
 % OUTPUT:
 % delta_min : estimated lower bound on average deviation
@@ -36,7 +37,7 @@ function [delta_min, delta_max, low_95, upp_95] = lea(A, c, j, N_max, M, delta, 
 
     % Average evolution of bounds over time
     avg_d = zeros(2,N_max);
-    % Store all Monte Carlo samples
+    % Store all Monte Carlo samples for visualization
     d_all = zeros(2,M);
 
     % --- Monte Carlo loop --
