@@ -40,7 +40,7 @@ max-plus linear systems.
 The algorithm:
 
 - applies randomness to a max-plus matrix,
-- propagates two trajectories with a fixed time shift that represent lower and upper bound of Lyapunov exponent,
+- propagates two trajectories with a fixed time shift that represent **lower and upper bound** of Lyapunov exponent,
 - estimates their mean values to get bounds for Lyapunov exponent,
 - computes **95% confidence intervals** from Monte Carlo samples.
 
