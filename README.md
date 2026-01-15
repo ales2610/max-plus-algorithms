@@ -59,7 +59,7 @@ The script:
 3. Runs the Monte Carlo estimation
 4. Returns deviation bounds and confidence intervals
 
-
+![Timed event graph](docs/example_net.svg)
 
 ---
 
